@@ -3,3 +3,8 @@
 
 # macOS
 .DS_Store
+
+# CI workflow is kept locally but deliberately NOT published while GitHub Actions
+# is unusable on this account (billing lock). Ignore the exact file only - never
+# `*.yml`, which would silently swallow other YAML in the repo.
+/.github/workflows/ci.yml
