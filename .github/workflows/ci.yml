@@ -1,0 +1,54 @@
+name: CI
+
+# Must live at <repository-root>/.github/workflows/ — GitHub does not discover
+# workflows in subdirectories such as supplier-simulator/.github/workflows/.
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and Integration Tests
+    runs-on: ubuntu-latest
+
+    # The Maven project (and its pom.xml) lives in this subdirectory, not at the repo root.
+    defaults:
+      run:
+        working-directory: supplier-simulator
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: supplier-simulator/pom.xml
+
+      - name: Build and run tests
+        run: ./mvnw --batch-mode --no-transfer-progress clean verify
+
+      - name: Upload test reports on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: supplier-test-reports
+          # artifact paths resolve from the workspace root, not from the step's working-directory
+          path: supplier-simulator/target/surefire-reports/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,5 @@
+# VS Code workspace settings are machine-specific
+.vscode/
+
+# macOS
+.DS_Store
