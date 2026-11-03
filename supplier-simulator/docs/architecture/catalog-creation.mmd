@@ -1,0 +1,21 @@
+
+sequenceDiagram
+    autonumber
+    actor Admin
+    participant API as Catalogue Controller
+    participant Service as Product Service
+    participant Repo as Product Repository
+    participant DB as PostgreSQL
+
+    Admin->>API: POST /api/v1/products
+    API->>Service: createProduct(request)
+    Service->>Service: Validate product data
+    Service->>Repo: Check product code uniqueness
+    Repo->>DB: SELECT by product_code
+    DB-->>Repo: No existing product
+    Service->>Repo: Save product
+    Repo->>DB: INSERT INTO products
+    DB-->>Repo: Product persisted
+    Repo-->>Service: Product entity
+    Service-->>API: Product response
+    API-->>Admin: 201 Created
