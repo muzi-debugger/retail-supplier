@@ -3,6 +3,10 @@ spring:
   application:
     name: supplier-simulator
 
+  config:
+    # Reads the same .env Docker Compose uses, so no shell preface is needed to run the app.
+    import: optional:file:./.env[.properties]
+
   datasource:
     url: jdbc:postgresql://localhost:5435/${POSTGRES_SUPPLIER_DB}
     username: ${POSTGRES_SUPPLIER_USER}

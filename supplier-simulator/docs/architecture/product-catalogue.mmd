@@ -1,0 +1,28 @@
+
+classDiagram
+    direction LR
+
+    class Product {
+        -UUID id
+        -String productCode
+        -String brand
+        -String name
+        -String description
+        -boolean active
+        -Instant createdAt
+        -Instant updatedAt
+    }
+
+    class ProductVariant {
+        -UUID id
+        -String sku
+        -String colour
+        -String size
+        -BigDecimal wholesalePrice
+        -String currency
+        -boolean active
+        -Instant createdAt
+        -Instant updatedAt
+    }
+
+    Product "1" *-- "0..*" ProductVariant : contains

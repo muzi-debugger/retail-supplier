@@ -1,0 +1,27 @@
+
+erDiagram
+    PRODUCTS ||--o{ PRODUCT_VARIANTS : has
+
+    PRODUCTS {
+        UUID id PK
+        VARCHAR product_code UK
+        VARCHAR brand
+        VARCHAR name
+        TEXT description
+        BOOLEAN active
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    PRODUCT_VARIANTS {
+        UUID id PK
+        UUID product_id FK
+        VARCHAR sku UK
+        VARCHAR colour
+        VARCHAR size
+        NUMERIC wholesale_price
+        CHAR currency
+        BOOLEAN active
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
