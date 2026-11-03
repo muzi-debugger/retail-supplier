@@ -1,0 +1,27 @@
+
+spring:
+  application:
+    name: supplier-simulator
+
+  datasource:
+    url: jdbc:postgresql://localhost:5435/${POSTGRES_SUPPLIER_DB}
+    username: ${POSTGRES_SUPPLIER_USER}
+    password: ${POSTGRES_SUPPLIER_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # ensures Hibernate does not create or modify our database schema. Flyway will own that responsibility
+    open-in-view: false # keeps persistence operations out of the HTTP response-rendering lifecycle.
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
