@@ -18,6 +18,11 @@ jobs:
     name: Build and Integration Tests
     runs-on: ubuntu-latest
 
+    # The Maven project (and its pom.xml) lives in this subdirectory, not at the repo root.
+    defaults:
+      run:
+        working-directory: supplier-simulator
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,6 +45,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: supplier-test-reports
-          path: target/surefire-reports/
+          # artifact paths are resolved from the workspace root, not from the step's working-directory
+          path: supplier-simulator/target/surefire-reports/
           if-no-files-found: ignore
           retention-days: 7
