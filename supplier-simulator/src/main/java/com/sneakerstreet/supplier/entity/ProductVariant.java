@@ -3,10 +3,9 @@ package com.sneakerstreet.supplier.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.hibernate.annotations.JdbcTypeCode;
@@ -15,7 +14,6 @@ import org.hibernate.type.SqlTypes;
 @Entity
 @Table(name = "product_variants")
 @Getter
-@Setter
 @NoArgsConstructor
 public class ProductVariant {
 
@@ -56,14 +54,18 @@ public class ProductVariant {
             String sku,
             String colour,
             String size,
-            BigDecimal wholesalePrice) {
+            BigDecimal wholesalePrice,
+            String currency
+            ) {
 
         this.id = UUID.randomUUID();
-        this.product = product;
+        this.product = Objects.requireNonNull(product);
         this.sku = sku;
         this.colour = colour;
         this.size = size;
         this.wholesalePrice = wholesalePrice;
+        this.currency = currency;
+        this.active = true;
     }
 
     @PrePersist
