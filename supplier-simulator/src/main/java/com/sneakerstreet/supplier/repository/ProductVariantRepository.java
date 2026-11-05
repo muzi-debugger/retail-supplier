@@ -16,4 +16,8 @@ public interface ProductVariantRepository
     boolean existsBySku(String sku);
 
     List<ProductVariant> findByProductId(UUID productId);
+
+    boolean existsByProductIdAndColourAndSize(UUID productId, String colour, String size); 
+
+    Optional<ProductVariant> findByIdAndProductId(UUID variantId, UUID productId);
 }

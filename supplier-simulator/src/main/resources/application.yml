@@ -5,7 +5,9 @@ spring:
 
   config:
     # Reads the same .env Docker Compose uses, so no shell preface is needed to run the app.
-    import: optional:file:./.env[.properties]
+    import:
+      - optional:file:./.env[.properties]
+      - optional:file:./supplier-simulator/.env[.properties]
 
   datasource:
     url: jdbc:postgresql://localhost:5435/${POSTGRES_SUPPLIER_DB}
@@ -29,3 +31,11 @@ management:
     web:
       exposure:
         include: health,info
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha

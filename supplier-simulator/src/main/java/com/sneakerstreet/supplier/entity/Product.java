@@ -15,12 +15,10 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "products")
 @Getter
-@Setter
 @NoArgsConstructor
 public class Product {
 
@@ -40,7 +38,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -71,6 +69,15 @@ public class Product {
     @PreUpdate
     void onUpdate() {
         updatedAt = Instant.now();
+    }
+    public void updateDesctiprion(String description) {
+        this.description = description;
+    }
+    public void active(boolean active) {
+        this.active = active;
+    }
+    public void deactivate() {
+        this.active = false;
     }
 
 }

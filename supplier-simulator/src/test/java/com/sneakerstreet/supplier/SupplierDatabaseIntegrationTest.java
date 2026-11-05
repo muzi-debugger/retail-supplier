@@ -1,4 +1,4 @@
-package com.sneakerstreet.supplier.supplier;
+package com.sneakerstreet.supplier;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
